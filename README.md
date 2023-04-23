@@ -3,7 +3,7 @@ Tom Bu, Christoph Mertz, John Dolan
 Proceedings of IEEE Intelligent Vehicles Symposium (IV'23)
 
 
- * [Project Page](https://tom-bu.github.io/busview_crosswalk_cd)
+ * [Project Page](https://tom-bu.github.io/buscam_crosswalk_cd/)
  * [Data](https://www.kaggle.com/datasets/buvision/buscrosswalkchange)
 
 
