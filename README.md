@@ -14,7 +14,7 @@ The method is outlined as in the figure
 </p>
 
 ## Setup
-Download the crosswalk detection model [here](). 
+Download the crosswalk detection model [here](model/crosswalk_detector/model_final.pth). 
 The repository uses detectron2. 
 
 ### Reference Map Creation
@@ -29,7 +29,7 @@ python3 offline_mapping_query.py
 ```
 
 ### Dataset
-The dataset is saved here  [Data](https://www.kaggle.com/datasets/buvision/buscrosswalkchange) where it can be downloaded. This is only the offline dataset and it covers one year of images recorded by the bus at these intersections. The structure is as follows. The images and masks under ${intersection_id} are reference images used to make the reference map. The sparse directory under ${intersection_id} is the reference sfm map. The plane segmentation directory reorients the scene so that z points up and the ground has an elevation of 0. Images and masks under the query folder are query images and used to detect if a change has occurred. 
+The dataset is saved [here](https://www.kaggle.com/datasets/buvision/buscrosswalkchange) where it can be downloaded. This is only the offline dataset and it covers one year of images recorded by the bus at these intersections. The structure is as follows. The images and masks under ${intersection_id} are reference images used to make the reference map. The sparse directory under ${intersection_id} is the reference sfm map. The plane segmentation directory reorients the scene so that z points up and the ground has an elevation of 0. Images and masks under the query folder are query images and used to detect if a change has occurred. 
 
     dataset
         └── ${intersection_id}
