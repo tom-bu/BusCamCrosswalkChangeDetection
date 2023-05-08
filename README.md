@@ -21,7 +21,9 @@ pip install -r requirements.txt
 ```
 
 Install [pytorch](https://pytorch.org/get-started/locally/)
+
 Install [detectron2](https://github.com/facebookresearch/detectron2/blob/main/README.md)
+
 Install [colmap](https://colmap.github.io/) from source in order to utilize GPUs or without GPUs by 
 
 ```
@@ -113,7 +115,7 @@ This will generate another sfm output for each query ${date_id}
 
 This will generate an image like 
 <p align="center">
-  <img src="img/change_pred.jpg">
+  <img src="img/change_pred.jpg" height="300">
 </p>
 and print out a summary table of the detection results, where the top table shows the metrics for changes at the crosswalk level and the bottom shows the metrics at the intersection level. 
 
