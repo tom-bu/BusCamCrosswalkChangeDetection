@@ -24,7 +24,7 @@ from utils.eval_metrics import metrics
 class dated_config:
     def __init__(self, day = 'None'):
         self.model_path = "./model/crosswalk_detector/model_final.pth"
-        self.sfm_path = '2022_10_16_offline_map_query/'
+        self.sfm_path = 'dataset/'
         self.sfm_query_path = self.sfm_path + '{}/query/' + day + '/'
         self.sfm_img_path = self.sfm_query_path + 'images'
         self.sfm_mask_path = self.sfm_query_path + 'mask'
@@ -35,12 +35,11 @@ class dated_config:
 class exp_tracker:
     def __init__(self):
         self.metrics_any = {'ref':[], 'obs':[], 'loc':[], 'empty':[], 'precision':[], 'recall':[], 'accuracy':[], 'fpr':[], 'f1':[], 'no_c precision':[]}
-        self.metrics_existing = {'ref':[], 'obs':[], 'loc':[], 'empty':[], 'precision':[], 'recall':[], 'accuracy':[], 'fpr':[], 'f1':[], 'no_c precision':[]}
         self.metrics_int = {'ref':[], 'obs':[], 'loc':[], 'empty':[], 'precision':[], 'recall':[], 'accuracy':[], 'fpr':[], 'f1':[], 'no_c precision':[]}
 
 
     def update(self, exp, result):
-        for metrics, category in [[self.metrics_any,'any_change_cw'], [self.metrics_existing, 'any_change_existing_cw'], [self.metrics_int, 'any_change_intersection']]:
+        for metrics, category in [[self.metrics_any,'any_change_cw'], [self.metrics_int, 'any_change_intersection']]:
             if exp['ref_polygon'] == 'map':
                 metrics['ref'].append('map')
             else:
@@ -77,7 +76,7 @@ class exp_tracker:
         df = df.round(3)
         print(df.to_latex(index=False)) 
 
-li = [
+intersection_li = [
     'cw_0_267',
     'cw_0_87',
     'cw_10_210',
@@ -110,24 +109,24 @@ li = [
     'cw_9_217'
  ]
 experiment_li = [
-                  {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':False}, 
-                  {'ref_polygon':'sensor', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':False}, 
-                  {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':False}, 
+                  # {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':False}, 
+                  # {'ref_polygon':'sensor', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':False}, 
+                  # {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':False}, 
                   {'ref_polygon':'sensor', 'observable_check':True, 'localization_check':True, 'pretend_empty_map':False},
                  
-                   {'ref_polygon':'map', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':False}, 
-                   {'ref_polygon':'map', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':False}, 
-                   {'ref_polygon':'map', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':False}, 
-                  {'ref_polygon':'map', 'observable_check':True, 'localization_check':True, 'pretend_empty_map':False}, 
+                  #  {'ref_polygon':'map', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':False}, 
+                  #  {'ref_polygon':'map', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':False}, 
+                  #  {'ref_polygon':'map', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':False}, 
+                  # {'ref_polygon':'map', 'observable_check':True, 'localization_check':True, 'pretend_empty_map':False}, 
                  
-                  {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':True}, 
-                  {'ref_polygon':'sensor', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':True}, 
-                  {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':True}, 
-                  {'ref_polygon':'sensor', 'observable_check':True, 'localization_check':True, 'pretend_empty_map':True}, 
-                  {'ref_polygon':'map', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':True}, 
-                  {'ref_polygon':'map', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':True}, 
-                  {'ref_polygon':'map', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':True}, 
-                  {'ref_polygon':'map', 'observable_check':True, 'localization_check':True, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'sensor', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'sensor', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'sensor', 'observable_check':True, 'localization_check':True, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'map', 'observable_check':False, 'localization_check':False, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'map', 'observable_check':True, 'localization_check':False, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'map', 'observable_check':False, 'localization_check':True, 'pretend_empty_map':True}, 
+                  # {'ref_polygon':'map', 'observable_check':True, 'localization_check':True, 'pretend_empty_map':True}, 
                  ]
 #keep track of multiple experiments
 tracker = exp_tracker()
@@ -145,7 +144,7 @@ for x in experiment_li:
         experiment += '_pretendEmptyMap'
     #keep track of one experiment
     m = metrics()
-    for group in li:
+    for group in intersection_li:
         days = sorted(os.listdir(os.path.join(dated_config().sfm_path, group, 'query')))
         for date in days:
             config = dated_config(date)
@@ -163,12 +162,11 @@ for x in experiment_li:
                 if not os.path.exists(os.path.join(config.sfm_sparse_path.format(group), 'points3D.txt')):
                     sfm(config.sfm_img_path.format(group), config.sfm_mask_path.format(group),  config.sfm_sparse_path.format(group), config.sfm_offline_path.format(group))
                 
-                do your verifications here (visibility, proper localization, detections outside of the intersection)
-                if localization_check and not os.path.exists(os.path.join(config.sfm_sparse_path.format(group), 'localized_imgs.pkl')):
+                # do your verifications here (visibility, proper localization, detections outside of the intersection)
+                if localization_check:
                     percent = get_well_localized_imgs(config.sfm_img_path.format(group), config.sfm_sparse_path.format(group))
                 else:
                     percent = -1
-                    
                 get_change_gt(os.path.join(config.sfm_sparse_experiment.format(group, experiment)), group, ref_polygon, pretend_empty_map, query_time = datetime.strptime(date, '%Y_%m_%d').strftime("%m/%d/%y"))
                 #this will change the label based on observability
                 obs = get_observability(config.sfm_img_path.format(group), config.sfm_mask_path.format(group), config.sfm_sparse_path.format(group), config.sfm_offline_path.format(group), localization_check, experiment = experiment)

@@ -116,7 +116,7 @@ def get_change_gt(output, group = 'cw_0_87', reference_type = 'sensor', pretend_
     
     return a list of list for the crosswalk polygon, the label, and id
     """
-    offline_path = '2022_10_16_offline_map_query/'
+    offline_path = 'dataset/'
 
     query_time = datetime.strptime(query_time, '%m/%d/%y')
     ref_time = datetime.strptime(ref_time, '%m/%d/%y')
