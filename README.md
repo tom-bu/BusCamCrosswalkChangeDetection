@@ -19,9 +19,11 @@ conda create -n cw_cd python=3.8.8
 conda activate cw_cd
 pip install -r requirements.txt
 ```
+
 Install [pytorch](https://pytorch.org/get-started/locally/)
 Install [detectron2](https://github.com/facebookresearch/detectron2/blob/main/README.md)
 Install [colmap](https://colmap.github.io/) from source in order to utilize GPUs or without GPUs by 
+
 ```
 sudo apt update
 sudo apt install colmap
@@ -79,6 +81,8 @@ python3 offline_mapping_query.py
 ```
 
 This will generate another sfm output for each query ${date_id}
+
+
     dataset
         └── ${intersection_id}
             └── query
@@ -106,11 +110,13 @@ This will generate another sfm output for each query ${date_id}
                         ├── points3D.txt
                         └── cameras.txt
 
+
 This will generate an image like 
 <p align="center">
   <img src="img/change_pred.jpg">
 </p>
 and print out a summary table of the detection results, where the top table shows the metrics for changes at the crosswalk level and the bottom shows the metrics at the intersection level. 
+
 ```
 \begin{tabular}{llllllrrlr}
 \toprule
@@ -131,6 +137,7 @@ sensor &   x &   x &       &      None &   None &       1.0 &  0.0 & None &     
 
 
 ```
+
 ## Citing
 If you find our work useful, please consider citing:
 ```BibTeX
